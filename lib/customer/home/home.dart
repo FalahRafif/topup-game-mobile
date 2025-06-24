@@ -1,42 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../shared/customer/bottom_nav.dart'; // pastikan ini impor CustomerNavbar
 import 'widgets/banner.dart';
 import 'widgets/category.dart';
-
 import '../../shared/customer/apppbar.dart';
-import '../../shared/customer/bottom_nav.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _pages = const [
-    HomeContent(),
-    Center(child: Text('Halaman Pencarian')),
-    Center(child: Text('Halaman Transaksi')),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: _pages[_selectedIndex]),
-      bottomNavigationBar: CustomerNavbar(
-        selectedIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      body: const SafeArea(child: HomeContent()),
+      bottomNavigationBar: const CustomerNavbar(selectedIndex: 0),
     );
   }
 }
@@ -53,7 +30,6 @@ class HomeContent extends StatelessWidget {
           HomeHeader(),
           SizedBox(height: 5),
           DiscountBanner(),
-          // Categories(),
           GameCategories(),
           SizedBox(height: 20),
           PopularProducts(),
@@ -63,6 +39,7 @@ class HomeContent extends StatelessWidget {
     );
   }
 }
+
 
 // DiscountBanner, Categories, SpecialOffers, etc. tetap di sini atau bisa Anda pisahkan sesuai kebutuhan
 

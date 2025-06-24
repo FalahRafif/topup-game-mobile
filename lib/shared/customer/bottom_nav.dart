@@ -1,20 +1,46 @@
 import 'package:flutter/material.dart';
+import '../../customer/home/home.dart';
+import '../../customer/product/listProduct.dart';
+// import 'transaction_page.dart';
 
 class CustomerNavbar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onTap;
 
   const CustomerNavbar({
     Key? key,
     required this.selectedIndex,
-    required this.onTap,
   }) : super(key: key);
+
+  void _onItemTapped(BuildContext context, int index) {
+    if (index == selectedIndex) return; // Hindari reload halaman yang sama
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ListProductScreen()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
-      onTap: onTap,
+      onTap: (index) => _onItemTapped(context, index),
       selectedItemColor: const Color(0xFFFF7643),
       unselectedItemColor: Colors.grey,
       items: const [
