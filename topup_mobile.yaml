@@ -1,0 +1,5 @@
+flutter_native_splash:
+  android: true
+  web: true
+  ios: true
+  image: 'assets/images/kliktopup-logo.png'
