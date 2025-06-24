@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../pembayaran/detailPembayaran.dart';
+
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -192,7 +194,14 @@ class CheckoutCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InvoicingScreen(),
+                          )
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: const Color(0xFFFF7643),

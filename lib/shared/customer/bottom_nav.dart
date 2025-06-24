@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../customer/home/home.dart';
 import '../../customer/product/listProduct.dart';
-// import 'transaction_page.dart';
+import '../../customer/pembayaran/historyPembayaran.dart';
 
 class CustomerNavbar extends StatelessWidget {
   final int selectedIndex;
@@ -30,7 +30,7 @@ class CustomerNavbar extends StatelessWidget {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(builder: (context) => TransactionListScreen()),
         );
         break;
     }
