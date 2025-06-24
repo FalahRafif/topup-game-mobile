@@ -6,6 +6,8 @@ import 'widgets/banner.dart';
 import 'widgets/category.dart';
 import '../../shared/customer/apppbar.dart';
 
+import '../product/detailProduct.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -233,7 +235,14 @@ class PopularProducts extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 20),
                       child: ProductCard(
                         product: demoProducts[index],
-                        onPress: () {},
+                        onPress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsScreen(),
+                            ),
+                          );
+                        },
                       ),
                     );
                   }
@@ -269,7 +278,7 @@ class ProductCard extends StatelessWidget {
     return SizedBox(
       width: width,
       child: GestureDetector(
-        onTap: onPress,
+        onTap: onPress ,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

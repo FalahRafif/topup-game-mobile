@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../customer/cart/cart.dart';
+import '../../customer/profile/profile.dart';
+
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({Key? key}) : super(key: key);
@@ -11,14 +14,32 @@ class HomeHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(child: SearchField()),
+          Expanded(child: SearchField()),
           const SizedBox(width: 16),
           IconBtnWithCounter(
             svgSrc: cartIcon,
-            press: () {},
+            press: () {
+              // Navigasi ke halaman keranjang
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(),
+                )
+              );
+            },
           ),
           const SizedBox(width: 8),
-          const ProfileAvatar(),
+          ProfileAvatar(
+            onTap: () {
+              // Navigasi ke halaman profil
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  )
+              );
+            },
+          ),
         ],
       ),
     );
@@ -32,7 +53,11 @@ class SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
-        onChanged: (value) {},
+        onFieldSubmitted: (value) {
+          if (value.trim().isNotEmpty) {
+            Navigator.pushNamed(context, '/product_detail', arguments: value);
+          }
+        },
         decoration: InputDecoration(
           filled: true,
           hintStyle: const TextStyle(color: Color(0xFF757575)),
@@ -112,15 +137,16 @@ class IconBtnWithCounter extends StatelessWidget {
     );
   }
 }
+
 class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({super.key});
+  final VoidCallback onTap;
+
+  const ProfileAvatar({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Navigasi ke halaman profil
-      },
+      onTap: onTap,
       child: Container(
         width: 46,
         height: 46,
@@ -130,7 +156,7 @@ class ProfileAvatar extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: Image.network(
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s', // Ganti dengan URL profil asli
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s',
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
             return const Icon(Icons.person, size: 26, color: Colors.grey);

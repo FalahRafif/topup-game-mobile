@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../shared/customer/bottom_nav.dart';
 import '../../shared/customer/apppbar.dart';
+import 'detailProduct.dart';
 
 class ListProductScreen extends StatefulWidget {
   const ListProductScreen({super.key});
@@ -198,7 +199,11 @@ class AllProducts extends StatelessWidget {
           return ProductCard(
             product: demoProducts[index],
             onPress: () {
-              // Aksi saat produk ditekan
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => ProductDetailsScreen(),
+              ));
             },
           );
         },
