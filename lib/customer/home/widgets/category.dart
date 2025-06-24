@@ -1,0 +1,165 @@
+import 'package:flutter/material.dart';
+
+class GameCategories extends StatelessWidget {
+  const GameCategories({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SectionTitle(
+            title: "Category Game",
+            press: () {},
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              const SizedBox(width: 20), // padding kiri
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        label: "Console Game",
+                      ),
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/BQjz4G1k/Image-Banner-3.png",
+                        label: "Mobile Game",
+                      ),
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/1XjYwvbv/glap.png",
+                        label: "PC Game",
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        label: "PS5 Game",
+                      ),
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        label: "Xbox Game",
+                      ),
+                      GameCategoryCard(
+                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        label: "Nintendo Game",
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(width: 20), // padding kanan
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class GameCategoryCard extends StatelessWidget {
+  const GameCategoryCard({
+    Key? key,
+    required this.image,
+    required this.label,
+    this.press,
+  }) : super(key: key);
+
+  final String image;
+  final String label;
+  final VoidCallback? press;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: GestureDetector(
+        onTap: press ?? () {},
+        child: SizedBox(
+          width: 242,
+          height: 100,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black54,
+                        Colors.black38,
+                        Colors.black26,
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SectionTitle extends StatelessWidget {
+  const SectionTitle({
+    Key? key,
+    required this.title,
+    required this.press,
+  }) : super(key: key);
+
+  final String title;
+  final GestureTapCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Colors.black,
+          ),
+        ),
+        TextButton(
+          onPressed: press,
+          style: TextButton.styleFrom(foregroundColor: Colors.grey),
+          child: const Text("See more"),
+        ),
+      ],
+    );
+  }
+}
