@@ -1,182 +1,225 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../shared/customer/bottom_nav.dart';
-import '../../shared/customer/apppbar.dart'; // pastikan path-nya benar
+import '../../shared/customer/apppbar.dart';
 
-class ListProductScreen extends StatelessWidget {
+class ListProductScreen extends StatefulWidget {
   const ListProductScreen({super.key});
+
+  @override
+  State<ListProductScreen> createState() => _ListProductScreenState();
+}
+
+class _ListProductScreenState extends State<ListProductScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool showNewestFirst = true;
+  bool showCheapestFirst = false;
+
+  RangeValues priceRange = const RangeValues(0, 1000000);
+  Map<String, bool> categories = {
+    'Console Game': false,
+    'Moblie Game': false,
+    'PC Game': false,
+    'Playstation Game': false,
+    'Xbox Game': false,
+    'Nitendo Game': false,
+  };
+
+  void openFilterDrawer() {
+    _scaffoldKey.currentState?.openDrawer();
+  }
+
+  void toggleSort(String type) {
+    setState(() {
+      if (type == 'newest') {
+        showNewestFirst = !showNewestFirst;
+      } else if (type == 'cheapest') {
+        showCheapestFirst = !showCheapestFirst;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Column(
+      key: _scaffoldKey,
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(16),
             children: [
-              HomeHeader(),               // AppBar global
-              DiscountBanner(),
-              PopularProducts(),
-              SizedBox(height: 20),
-              RecentlyAddedProducts(),
+              const Text('Filter Produk', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 20),
+              const Text('Kategori Game', style: TextStyle(fontWeight: FontWeight.w600)),
+              ...categories.keys.map((key) {
+                return CheckboxListTile(
+                  title: Text(key),
+                  value: categories[key],
+                  onChanged: (value) {
+                    setState(() {
+                      categories[key] = value ?? false;
+                    });
+                  },
+                );
+              }).toList(),
+              const Divider(),
+              const Text('Harga', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'Min',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: 'Max',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close drawer
+                  // Apply filters here
+                },
+                child: const Text('Terapkan Filter'),
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const CustomerNavbar(
-        selectedIndex: 1,               // Tab aktif
-      ),
-    );
-  }
-}
-
-class DiscountBanner extends StatelessWidget {
-  const DiscountBanner({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 16,
-      ),
-      decoration: BoxDecoration(
-        color: const Color(0xFF4A3298),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: const Text.rich(
-        TextSpan(
-          style: TextStyle(color: Colors.white),
-          children: [
-            TextSpan(text: "A Summer Surpise\n"),
-            TextSpan(
-              text: "Cashback 20%",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              const HomeHeader(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: openFilterDrawer,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.filter_list),
+                            SizedBox(width: 6),
+                            Text('Filter'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () => toggleSort('newest'),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text('Terbaru'),
+                            Icon(showNewestFirst ? Icons.arrow_drop_up : Icons.arrow_drop_down),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () => toggleSort('cheapest'),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text('Termurah'),
+                            Icon(showCheapestFirst ? Icons.arrow_drop_down : Icons.arrow_drop_up),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              const AllProducts(), // Tetap gunakan komponen lama
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar: const CustomerNavbar(selectedIndex: 1),
+    );
+  }
+}
+
+class AllProducts extends StatelessWidget {
+  const AllProducts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: demoProducts.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 20,
+          childAspectRatio: 0.7,
+        ),
+        itemBuilder: (context, index) {
+          return ProductCard(
+            product: demoProducts[index],
+            onPress: () {
+              // Aksi saat produk ditekan
+            },
+          );
+        },
       ),
     );
   }
 }
 
-class SectionTitle extends StatelessWidget {
-  const SectionTitle({
-    Key? key,
-    required this.title,
-    required this.press,
-  }) : super(key: key);
 
-  final String title;
-  final GestureTapCallback press;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-        TextButton(
-          onPressed: press,
-          style: TextButton.styleFrom(foregroundColor: Colors.grey),
-          child: const Text("See more"),
-        ),
-      ],
-    );
-  }
-}
 
-class PopularProducts extends StatelessWidget {
-  const PopularProducts({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SectionTitle(
-            title: "Popular Products",
-            press: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: demoProducts.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 20,
-              childAspectRatio: 0.7,
-            ),
-            itemBuilder: (context, index) {
-              return ProductCard(
-                product: demoProducts[index],
-                onPress: () {},
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
 
-class RecentlyAddedProducts extends StatelessWidget {
-  const RecentlyAddedProducts({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SectionTitle(
-            title: "Recently Added",
-            press: () {},
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: demoProducts.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 20,
-              childAspectRatio: 0.7,
-            ),
-            itemBuilder: (context, index) {
-              return ProductCard(
-                product: demoProducts[index],
-                onPress: () {},
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
+
+
+
+
+
+
+
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -282,78 +325,174 @@ class Product {
 }
 
 // Our demo Products
-
 List<Product> demoProducts = [
   Product(
     id: 1,
-    images: ["https://i.postimg.cc/c19zpJ6f/Image-Popular-Product-1.png"],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Wireless Controller for PS4™",
-    price: 64.99,
+    images: ['assets/images/product/1557982996-icon-1557795069-icon-39748506_1738134969632357_6946602765074300928_n.png.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Product 1",
+    price: 19.99,
     description: description,
-    rating: 4.8,
-    isFavourite: true,
+    rating: 4.0,
     isPopular: true,
   ),
   Product(
     id: 2,
-    images: [
-      "https://i.postimg.cc/CxD6nH74/Image-Popular-Product-2.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Nike Sport White - Man Pant",
-    price: 50.5,
-    description: description,
-    rating: 4.1,
-    isPopular: true,
-  ),
-  Product(
-    id: 3,
-    images: [
-      "https://i.postimg.cc/1XjYwvbv/glap.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Gloves XC Omega - Polygon",
-    price: 36.55,
+    images: ['assets/images/product/1571814027-icon-1559011491-icon-1557743544-icon-point_blank.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Point Blank",
+    price: 24.99,
     description: description,
     rating: 4.1,
     isFavourite: true,
+  ),
+  Product(
+    id: 3,
+    images: ['assets/images/product/1633599388-icon-Icon_1024.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Icon 1024",
+    price: 29.99,
+    description: description,
+    rating: 4.2,
     isPopular: true,
   ),
   Product(
     id: 4,
-    images: [
-      "https://i.postimg.cc/d1QWXMYW/Image-Popular-Product-3.png",
-    ],
-    colors: [
-      const Color(0xFFF6625E),
-      const Color(0xFF836DB8),
-      const Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Gloves XC Omega - Polygon",
-    price: 36.55,
+    images: ['assets/images/product/1641367393-icon-WeChat Image_20220105152150.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "WeChat Image",
+    price: 22.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 5,
+    images: ['assets/images/product/1648197143-icon-微信图片_20220325112829.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Wechat Image CN",
+    price: 20.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 6,
+    images: ['assets/images/product/1658817763-icon-200x200_icon ff.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Free Fire",
+    price: 23.99,
+    description: description,
+    rating: 4.3,
+    isPopular: true,
+  ),
+  Product(
+    id: 7,
+    images: ['assets/images/product/1735814979-icon-Image_20250102184102_ML.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Mobile Legends",
+    price: 25.99,
+    description: description,
+    rating: 4.4,
+    isFavourite: true,
+  ),
+  Product(
+    id: 8,
+    images: ['assets/images/product/AOV-tile-codacash-new.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "AOV Codacash",
+    price: 27.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 9,
+    images: ['assets/images/product/Copy of genshin.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Genshin Copy",
+    price: 26.99,
+    description: description,
+    rating: 4.5,
+  ),
+  Product(
+    id: 10,
+    images: ['assets/images/product/genshin.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Genshin Impact",
+    price: 29.99,
+    description: description,
+    rating: 4.8,
+    isPopular: true,
+    isFavourite: true,
+  ),
+  Product(
+    id: 11,
+    images: ['assets/images/product/hago-tile-codacash-new.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Hago Codacash",
+    price: 18.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 12,
+    images: ['assets/images/product/MCGG.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "MCGG",
+    price: 19.99,
+    description: description,
+    rating: 4.2,
+    isFavourite: true,
+  ),
+  Product(
+    id: 13,
+    images: ['assets/images/product/metal slug.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Metal Slug",
+    price: 17.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 14,
+    images: ['assets/images/product/omp_new.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "OMP",
+    price: 21.99,
+    description: description,
+    rating: 4.0,
+  ),
+  Product(
+    id: 15,
+    images: ['assets/images/product/pubgmobile_640x241.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "PUBG Mobile",
+    price: 28.99,
+    description: description,
+    rating: 4.3,
+    isPopular: true,
+  ),
+  Product(
+    id: 16,
+    images: ['assets/images/product/supersus-tile-codacash-new.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Super Sus",
+    price: 20.99,
     description: description,
     rating: 4.1,
-    isFavourite: false,
+  ),
+  Product(
+    id: 17,
+    images: ['assets/images/product/valorant.jpg'],
+    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
+    title: "Valorant",
+    price: 27.49,
+    description: description,
+    rating: 4.7,
+    isFavourite: true,
     isPopular: true,
   ),
 ];
+
+
 
 const heartIcon =
 '''<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">

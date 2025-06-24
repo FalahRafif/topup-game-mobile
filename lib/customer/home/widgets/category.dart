@@ -24,15 +24,15 @@ class GameCategories extends StatelessWidget {
                   Row(
                     children: [
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        image: "assets/images/category/img.png",
                         label: "Console Game",
                       ),
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/BQjz4G1k/Image-Banner-3.png",
+                        image: "assets/images/category/img_3.png",
                         label: "Mobile Game",
                       ),
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/1XjYwvbv/glap.png",
+                        image: "assets/images/category/img_4.png",
                         label: "PC Game",
                       ),
                     ],
@@ -41,15 +41,15 @@ class GameCategories extends StatelessWidget {
                   Row(
                     children: [
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
-                        label: "PS5 Game",
+                        image: "assets/images/category/img_1.png",
+                        label: "Playstation Game",
                       ),
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        image: "assets/images/category/img_2.png",
                         label: "Xbox Game",
                       ),
                       GameCategoryCard(
-                        image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
+                        image: "assets/images/category/img_5.png",
                         label: "Nintendo Game",
                       ),
                     ],

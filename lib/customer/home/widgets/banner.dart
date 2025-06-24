@@ -12,9 +12,9 @@ class _DiscountBannerState extends State<DiscountBanner> {
   int _currentPage = 0;
 
   final List<String> bannerImages = [
+    'assets/images/banner1.jpg',
     'assets/images/banner2.jpg',
-    'assets/images/banner2.jpg',
-    'assets/images/banner2.jpg',
+    'assets/images/image.png',
   ];
 
   @override
