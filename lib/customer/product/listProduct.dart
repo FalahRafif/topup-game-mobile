@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:topup_mobile/constants.dart';
 import '../../shared/customer/bottom_nav.dart';
 import '../../shared/customer/apppbar.dart';
 import 'detailProduct.dart';
@@ -47,6 +48,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       drawer: Drawer(
+        backgroundColor: kPrimaryLightColor,
         width: MediaQuery.of(context).size.width * 0.8,
         child: SafeArea(
           child: ListView(

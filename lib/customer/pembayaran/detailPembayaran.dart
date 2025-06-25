@@ -92,7 +92,7 @@ class InvoicingScreen extends StatelessWidget {
     const statusList = [
       {"label": "Menunggu", "icon": Icons.access_time},
       {"label": "Dibayar", "icon": Icons.payment},
-      {"label": "Diproses", "icon": Icons.local_shipping},
+      {"label": "Diproses", "icon": Icons.autorenew},
       {"label": "Berhasil", "icon": Icons.check_circle},
     ];
 
@@ -177,7 +177,7 @@ class InvoicingScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // List produk
+            /// Expanded untuk konten yang bisa scroll
             Expanded(
               child: ListView.builder(
                 itemCount: products.length,
@@ -192,51 +192,47 @@ class InvoicingScreen extends StatelessWidget {
               ),
             ),
 
+            /// Tidak pakai Expanded di sini agar tidak konflik
             const SizedBox(height: 8),
-
-            // Total & tombol bayar
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Total Bayar:",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "Rp ${totalAmount.toStringAsFixed(0)}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                  ],
+                const Text(
+                  "Total Bayar:",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _showPaymentOptions(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: const Text(
-                      "Bayar Sekarang",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
-                    ),
+                Text(
+                  "Rp ${totalAmount.toStringAsFixed(0)}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor,
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => _showPaymentOptions(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: kPrimaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Text(
+                  "Bayar Sekarang",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
+                ),
+              ),
+            ),
           ],
         ),
       ),
+
     );
   }
 }
