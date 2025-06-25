@@ -29,14 +29,38 @@ class GameCategories extends StatelessWidget {
                       GameCategoryCard(
                         image: "assets/images/category/img.png",
                         label: "Console Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                       GameCategoryCard(
                         image: "assets/images/category/img_3.png",
                         label: "Mobile Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                       GameCategoryCard(
                         image: "assets/images/category/img_4.png",
                         label: "PC Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -46,14 +70,38 @@ class GameCategories extends StatelessWidget {
                       GameCategoryCard(
                         image: "assets/images/category/img_1.png",
                         label: "Playstation Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                       GameCategoryCard(
                         image: "assets/images/category/img_2.png",
                         label: "Xbox Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                       GameCategoryCard(
                         image: "assets/images/category/img_5.png",
                         label: "Nintendo Game",
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ListProductScreen(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -93,7 +141,7 @@ class GameCategoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.network(
+                Image.asset(
                   image,
                   fit: BoxFit.cover,
                   width: double.infinity,

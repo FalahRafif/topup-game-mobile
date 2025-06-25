@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'detailPembayaran.dart';
 import '../../shared/customer/bottom_nav.dart';
 import '../../shared/customer/apppbar.dart';
+import '../../constants.dart';
 
 class Transaction {
   final String id;
@@ -30,7 +31,7 @@ class TransactionListScreen extends StatelessWidget {
       date: "2025-06-24",
       total: 1250000,
       status: "success",
-      productImage: "https://i.postimg.cc/c19zpJ6f/Image-Popular-Product-1.png",
+      productImage: "assets/images/product/1735814979-icon-Image_20250102184102_ML.jpg",
       items: [
         "Mobile Legends Diamonds",
         "PUBG UC",
@@ -43,7 +44,7 @@ class TransactionListScreen extends StatelessWidget {
       date: "2025-06-23",
       total: 505000,
       status: "pending",
-      productImage: "https://i.postimg.cc/CxD6nH74/Image-Popular-Product-2.png",
+      productImage: "assets/images/product/1658817763-icon-200x200_icon ff.jpg",
       items: ["Free Fire Diamond", "Higgs Domino Chip"],
     ),
     Transaction(
@@ -51,7 +52,7 @@ class TransactionListScreen extends StatelessWidget {
       date: "2025-06-20",
       total: 840000,
       status: "failed",
-      productImage: "https://i.postimg.cc/1XjYwvbv/glap.png",
+      productImage: "assets/images/product/genshin.jpg",
       items: ["Genshin Primogems"],
     ),
   ];
@@ -114,7 +115,7 @@ class TransactionListScreen extends StatelessWidget {
                 color: Colors.white,
               ),
               clipBehavior: Clip.antiAlias,
-              child: Image.network(
+              child: Image.asset(
                 tx.productImage,
                 fit: BoxFit.cover,
               ),
@@ -178,7 +179,7 @@ class TransactionListScreen extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFF7643),
+                color: kPrimaryColor,
               ),
             ),
           ],

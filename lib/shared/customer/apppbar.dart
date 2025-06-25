@@ -153,8 +153,8 @@ class ProfileAvatar extends StatelessWidget {
           color: Colors.grey[200],
         ),
         clipBehavior: Clip.antiAlias,
-        child: Image.network(
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s',
+        child: Image.asset(
+          'assets/images/misc/img.png',
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
             return const Icon(Icons.person, size: 26, color: kPrimaryColor);

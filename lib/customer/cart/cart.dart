@@ -89,7 +89,7 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network(cart.product.images[0]),
+              child: Image.asset(cart.product.images[0]),
             ),
           ),
         ),
@@ -105,7 +105,7 @@ class CartCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text.rich(
               TextSpan(
-                text: "Rp. {cart.product.price}",
+                text: "Rp. ${cart.product.price}",
                 style: const TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [

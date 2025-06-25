@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // TODO: add flutter_svg to pubspec.yaml
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../constants.dart';
+import '../../Auth/Welcome/welcome_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,28 +22,35 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ProfileMenu(
               text: "My Account",
-              icon: "assets/icons/User Icon.svg",
+              icon: "assets/images/icons/User Icon.svg",
               press: () => {},
             ),
             ProfileMenu(
               text: "Notifications",
-              icon: "assets/icons/Bell.svg",
+              icon: "assets/images/icons/Bell.svg",
               press: () {},
             ),
             ProfileMenu(
               text: "Settings",
-              icon: "assets/icons/Settings.svg",
+              icon: "assets/images/icons/Settings.svg",
               press: () {},
             ),
             ProfileMenu(
               text: "Help Center",
-              icon: "assets/icons/Question mark.svg",
+              icon: "assets/images/icons/Question mark.svg",
               press: () {},
             ),
             ProfileMenu(
               text: "Log Out",
-              icon: "assets/icons/Log out.svg",
-              press: () {},
+              icon: "assets/images/icons/Log out.svg",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WelcomeScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -66,7 +75,7 @@ class ProfilePic extends StatelessWidget {
         children: [
           const CircleAvatar(
             backgroundImage:
-            NetworkImage("https://i.postimg.cc/0jqKB6mS/Profile-Image.png"),
+            AssetImage("assets/images/misc/img.png"),
           ),
           Positioned(
             right: -16,
@@ -111,7 +120,7 @@ class ProfileMenu extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: const Color(0xFFFF7643),
+          foregroundColor: kPrimaryColor,
           padding: const EdgeInsets.all(20),
           shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -123,7 +132,7 @@ class ProfileMenu extends StatelessWidget {
             SvgPicture.asset(
               icon,
               colorFilter:
-              const ColorFilter.mode(Color(0xFFFF7643), BlendMode.srcIn),
+              const ColorFilter.mode(kPrimaryColor, BlendMode.srcIn),
               width: 22,
             ),
             const SizedBox(width: 20),

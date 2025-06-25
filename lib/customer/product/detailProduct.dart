@@ -297,7 +297,7 @@ class _ProductImagesState extends State<ProductImages> {
           width: 238,
           child: AspectRatio(
             aspectRatio: 1,
-            child: Image.network(widget.product.images[selectedImage]),
+            child: Image.asset(widget.product.images[selectedImage]),
           ),
         ),
         // SizedBox(height: 20),
@@ -356,7 +356,7 @@ class _SmallProductImageState extends State<SmallProductImage> {
               color: kPrimaryColor
                   .withOpacity(widget.isSelected ? 1 : 0)),
         ),
-        child: Image.network(widget.image),
+        child: Image.asset(widget.image),
       ),
     );
   }
@@ -598,9 +598,8 @@ List<Product> demoProducts = [
     id: 1,
     images: [
       "assets/images/product/Copy of genshin.jpg",
-      "assets/images/product/Copy of genshin.jpg",
-      "assets/images/product/Copy of genshin.jpg",
-      "assets/images/product/Copy of genshin.jpg"
+      "assets/images/misc/img_2.png",
+      "assets/images/misc/img_3.png"
     ],
     colors: [
       const Color(0xFFF6625E),

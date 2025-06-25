@@ -59,7 +59,7 @@ class InvoicingScreen extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.network(imageUrl),
+            child: Image.asset(imageUrl),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -120,7 +120,6 @@ class InvoicingScreen extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-
             ],
           ),
         );
@@ -132,12 +131,12 @@ class InvoicingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> products = [
       {
-        "image": "https://i.postimg.cc/c19zpJ6f/Image-Popular-Product-1.png",
+        "image": "assets/images/product/genshin.jpg",
         "title": "Genshin Impact - Primogem 160™",
         "price": 649000,
       },
       {
-        "image": "https://i.postimg.cc/CxD6nH74/Image-Popular-Product-2.png",
+        "image": "assets/images/product/1735814979-icon-Image_20250102184102_ML.jpg",
         "title": "Mobile Legend - Diamond 1000",
         "price": 505000,
       },
