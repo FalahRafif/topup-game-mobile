@@ -25,6 +25,7 @@ class DashboardScreen extends StatelessWidget {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         title: Positioned(
           left: 0,
@@ -137,6 +138,7 @@ class DashboardScreen extends StatelessWidget {
   ) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.white,
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -172,6 +174,7 @@ Widget _buildGraphCard() {
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     elevation: 4,
+    color: Colors.white,
     child: Container(
       height: 240,
       padding: EdgeInsets.all(16),
@@ -292,6 +295,7 @@ Widget _buildPieChartCard() {
   return Card(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     elevation: 4,
+    color: Colors.white,
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
