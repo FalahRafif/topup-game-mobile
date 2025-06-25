@@ -93,7 +93,7 @@ class GameCategories extends StatelessWidget {
                       ),
                       GameCategoryCard(
                         image: "assets/images/category/img_5.png",
-                        label: "Nintendo Game",
+                        label: "Nitendo Game",
                         press: () {
                           Navigator.push(
                             context,
