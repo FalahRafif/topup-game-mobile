@@ -1,4 +1,5 @@
 import 'package:topup_mobile/constants.dart';
+import 'package:topup_mobile/main.dart';
 import 'package:flutter/material.dart';
 
 void showLoading(
@@ -77,7 +78,7 @@ loadingContent(
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
             ),
             SizedBox(height: 24.0),
-            statusCode != "100"
+            statusCode == "200"
                 ? Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
@@ -89,6 +90,55 @@ loadingContent(
                       },
                       child: Text("Ok"),
                     ),
+                  )
+                : statusCode == "300"
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(21.0),
+                              side: BorderSide(color: kPrimaryColor),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                          },
+                          child: Text(
+                            "Batal",
+                            style: TextStyle(color: kPrimaryColor),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10), //
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true).pop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return MyApp();
+                                },
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Keluar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : Align(alignment: Alignment.bottomRight, child: Text("")),
           ],

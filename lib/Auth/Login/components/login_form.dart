@@ -5,7 +5,7 @@ import '../../../constants.dart';
 import '../../Signup/signup_screen.dart';
 import '../../Signup/components/or_divider.dart';
 import 'login_google_button.dart';
-import '../../../admin_home.dart';
+import '../../../Admin/admin_home.dart';
 import '../../components/modal_validation.dart';
 
 class LoginForm extends StatelessWidget {
@@ -85,7 +85,7 @@ class LoginForm extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const AdminHome();
+                        return AdminHome();
                       },
                     ),
                   );
@@ -95,7 +95,7 @@ class LoginForm extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return const AdminHome();
+                        return AdminHome();
                       },
                     ),
                   );
