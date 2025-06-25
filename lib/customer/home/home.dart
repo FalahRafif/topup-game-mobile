@@ -8,6 +8,7 @@ import '../../shared/customer/apppbar.dart';
 
 import '../product/detailProduct.dart';
 
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -44,170 +45,6 @@ class HomeContent extends StatelessWidget {
 
 
 // DiscountBanner, Categories, SpecialOffers, etc. tetap di sini atau bisa Anda pisahkan sesuai kebutuhan
-
-
-
-class SearchField extends StatelessWidget {
-  const SearchField({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: TextFormField(
-        onChanged: (value) {},
-        decoration: InputDecoration(
-          filled: true,
-          hintStyle: const TextStyle(color: Color(0xFF757575)),
-          fillColor: const Color(0xFF979797).withOpacity(0.1),
-          contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            borderSide: BorderSide.none,
-          ),
-          hintText: "Search product",
-          prefixIcon: const Icon(Icons.search),
-        ),
-      ),
-    );
-  }
-}
-
-class IconBtnWithCounter extends StatelessWidget {
-  const IconBtnWithCounter({
-    Key? key,
-    required this.svgSrc,
-    this.numOfitem = 0,
-    required this.press,
-  }) : super(key: key);
-
-  final String svgSrc;
-  final int numOfitem;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(100),
-      onTap: press,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            height: 46,
-            width: 46,
-            decoration: BoxDecoration(
-              color: const Color(0xFF979797).withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: SvgPicture.string(svgSrc),
-          ),
-          if (numOfitem != 0)
-            Positioned(
-              top: -3,
-              right: 0,
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFFF4848),
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1.5, color: Colors.white),
-                ),
-                child: Center(
-                  child: Text(
-                    "$numOfitem",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      height: 1,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            )
-        ],
-      ),
-    );
-  }
-}
-
-
-class Categories extends StatelessWidget {
-  const Categories({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": flashIcon, "text": "Flash Deal"},
-      {"icon": billIcon, "text": "Bill"},
-      {"icon": gameIcon, "text": "Game"},
-      {"icon": giftIcon, "text": "Daily Gift"},
-      {"icon": discoverIcon, "text": "More"},
-    ];
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-              (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    Key? key,
-    required this.icon,
-    required this.text,
-    required this.press,
-  }) : super(key: key);
-
-  final String icon, text;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            height: 56,
-            width: 56,
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFECDF),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: SvgPicture.string(icon),
-          ),
-          const SizedBox(height: 4),
-          Text(text, textAlign: TextAlign.center)
-        ],
-      ),
-    );
-  }
-}
-
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({super.key});
@@ -284,15 +121,17 @@ class ProductCard extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1.02,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF979797).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  product.images[0],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
-                child: Image.network(product.images[0]),
               ),
             ),
+
             const SizedBox(height: 8),
             Text(
               product.title,
@@ -302,14 +141,14 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "\$${product.price}",
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFFF7643),
-                  ),
-                ),
+                // Text(
+                //   "\$${product.price}",
+                //   style: const TextStyle(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w600,
+                //     color: Color(0xFFFF7643),
+                //   ),
+                // ),
                 InkWell(
                   borderRadius: BorderRadius.circular(50),
                   onTap: () {},
@@ -368,13 +207,14 @@ class Product {
 List<Product> demoProducts = [
   Product(
     id: 1,
-    images: ['assets/images/product/1557982996-icon-1557795069-icon-39748506_1738134969632357_6946602765074300928_n.png.jpg'],
+    images: ['assets/images/product/genshin.jpg'],
     colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Product 1",
-    price: 19.99,
+    title: "Genshin Impact",
+    price: 29.99,
     description: description,
-    rating: 4.0,
+    rating: 4.8,
     isPopular: true,
+    isFavourite: true,
   ),
   Product(
     id: 2,
@@ -390,7 +230,7 @@ List<Product> demoProducts = [
     id: 3,
     images: ['assets/images/product/1633599388-icon-Icon_1024.jpg'],
     colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Icon 1024",
+    title: "Call of Duty",
     price: 29.99,
     description: description,
     rating: 4.2,
@@ -442,26 +282,6 @@ List<Product> demoProducts = [
     price: 27.99,
     description: description,
     rating: 4.0,
-  ),
-  Product(
-    id: 9,
-    images: ['assets/images/product/Copy of genshin.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Genshin Copy",
-    price: 26.99,
-    description: description,
-    rating: 4.5,
-  ),
-  Product(
-    id: 10,
-    images: ['assets/images/product/genshin.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Genshin Impact",
-    price: 29.99,
-    description: description,
-    rating: 4.8,
-    isPopular: true,
-    isFavourite: true,
   ),
   Product(
     id: 11,

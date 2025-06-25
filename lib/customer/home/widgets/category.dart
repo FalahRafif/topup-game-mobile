@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../constants.dart';
+import '../../product/listProduct.dart';
+
 
 class GameCategories extends StatelessWidget {
   const GameCategories({Key? key}) : super(key: key);
@@ -93,7 +96,10 @@ class GameCategoryCard extends StatelessWidget {
                 Image.network(
                   image,
                   fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
+
                 Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -155,8 +161,15 @@ class SectionTitle extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: press,
-          style: TextButton.styleFrom(foregroundColor: Colors.grey),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ListProductScreen(),
+              ),
+            );
+          },
+          style: TextButton.styleFrom(foregroundColor: kPrimaryColor),
           child: const Text("See more"),
         ),
       ],

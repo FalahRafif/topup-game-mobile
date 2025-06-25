@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../customer/cart/cart.dart';
 import '../../customer/profile/profile.dart';
-
+import '../../constants.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({Key? key}) : super(key: key);
@@ -103,9 +103,7 @@ class IconBtnWithCounter extends StatelessWidget {
               color: const Color(0xFF979797).withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: svgSrc.trim().startsWith('<svg')
-                ? SvgPicture.string(svgSrc)
-                : const Icon(Icons.shopping_cart_outlined),
+            child: const Icon(Icons.shopping_cart_outlined, size: 26,color: kPrimaryColor),
           ),
           if (numOfitem != 0)
             Positioned(
@@ -159,7 +157,7 @@ class ProfileAvatar extends StatelessWidget {
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s',
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
-            return const Icon(Icons.person, size: 26, color: Colors.grey);
+            return const Icon(Icons.person, size: 26, color: kPrimaryColor);
           },
         ),
       ),

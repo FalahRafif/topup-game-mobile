@@ -8,6 +8,8 @@ import 'login_google_button.dart';
 import '../../../admin_home.dart';
 import '../../components/modal_validation.dart';
 
+import '../../../customer/home/home.dart';
+
 class LoginForm extends StatelessWidget {
 
   const LoginForm({Key? key}) : super(key: key);
@@ -94,9 +96,7 @@ class LoginForm extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return const AdminHome();
-                      },
+                      builder: (context) => HomePage()
                     ),
                   );
                 } else {

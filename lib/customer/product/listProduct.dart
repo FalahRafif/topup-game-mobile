@@ -45,6 +45,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Colors.white,
       drawer: Drawer(
         width: MediaQuery.of(context).size.width * 0.8,
         child: SafeArea(
@@ -250,13 +251,14 @@ class ProductCard extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1.02,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF979797).withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  product.images[0],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
-                child: Image.network(product.images[0]),
               ),
             ),
             const SizedBox(height: 8),
@@ -268,14 +270,14 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "\$${product.price}",
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFFFF7643),
-                  ),
-                ),
+                // Text(
+                //   "\$${product.price}",
+                //   style: const TextStyle(
+                //     fontSize: 14,
+                //     fontWeight: FontWeight.w600,
+                //     color: Color(0xFFFF7643),
+                //   ),
+                // ),
                 InkWell(
                   borderRadius: BorderRadius.circular(50),
                   onTap: () {},
@@ -333,13 +335,14 @@ class Product {
 List<Product> demoProducts = [
   Product(
     id: 1,
-    images: ['assets/images/product/1557982996-icon-1557795069-icon-39748506_1738134969632357_6946602765074300928_n.png.jpg'],
+    images: ['assets/images/product/genshin.jpg'],
     colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Product 1",
-    price: 19.99,
+    title: "Genshin Impact",
+    price: 29.99,
     description: description,
-    rating: 4.0,
+    rating: 4.8,
     isPopular: true,
+    isFavourite: true,
   ),
   Product(
     id: 2,
@@ -355,29 +358,11 @@ List<Product> demoProducts = [
     id: 3,
     images: ['assets/images/product/1633599388-icon-Icon_1024.jpg'],
     colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Icon 1024",
+    title: "Call of Duty",
     price: 29.99,
     description: description,
     rating: 4.2,
     isPopular: true,
-  ),
-  Product(
-    id: 4,
-    images: ['assets/images/product/1641367393-icon-WeChat Image_20220105152150.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "WeChat Image",
-    price: 22.99,
-    description: description,
-    rating: 4.0,
-  ),
-  Product(
-    id: 5,
-    images: ['assets/images/product/1648197143-icon-微信图片_20220325112829.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Wechat Image CN",
-    price: 20.99,
-    description: description,
-    rating: 4.0,
   ),
   Product(
     id: 6,
@@ -408,26 +393,7 @@ List<Product> demoProducts = [
     description: description,
     rating: 4.0,
   ),
-  Product(
-    id: 9,
-    images: ['assets/images/product/Copy of genshin.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Genshin Copy",
-    price: 26.99,
-    description: description,
-    rating: 4.5,
-  ),
-  Product(
-    id: 10,
-    images: ['assets/images/product/genshin.jpg'],
-    colors: [Color(0xFFF6625E), Color(0xFF836DB8), Color(0xFFDECB9C), Colors.white],
-    title: "Genshin Impact",
-    price: 29.99,
-    description: description,
-    rating: 4.8,
-    isPopular: true,
-    isFavourite: true,
-  ),
+
   Product(
     id: 11,
     images: ['assets/images/product/hago-tile-codacash-new.jpg'],

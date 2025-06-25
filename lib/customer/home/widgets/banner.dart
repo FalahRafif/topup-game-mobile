@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:topup_mobile/constants.dart';
 
 class DiscountBanner extends StatefulWidget {
   const DiscountBanner({super.key});
@@ -14,7 +15,6 @@ class _DiscountBannerState extends State<DiscountBanner> {
   final List<String> bannerImages = [
     'assets/images/banner1.jpg',
     'assets/images/banner2.jpg',
-    'assets/images/image.png',
   ];
 
   @override
@@ -54,7 +54,7 @@ class _DiscountBannerState extends State<DiscountBanner> {
               height: 8,
               width: _currentPage == index ? 20 : 8,
               decoration: BoxDecoration(
-                color: _currentPage == index ? const Color(0xFFFF7643) : Colors.grey[300],
+                color: _currentPage == index ? kPrimaryColor : Colors.grey[300],
                 borderRadius: BorderRadius.circular(4),
               ),
             ),

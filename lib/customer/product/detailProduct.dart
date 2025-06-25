@@ -2,13 +2,28 @@ import 'package:flutter/material.dart';
 // TODO: add flutter_svg dependency in pubspec.yaml
 import 'package:flutter_svg/flutter_svg.dart';
 import '../cart/cart.dart';
+import '../../../constants.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  int selectedTopup = 0;
+  List<String> topupOptions = [
+    "Primogem 50 - 7.000",
+    "Primogem 150 - 21.000",
+    "Primogem 540 - 98.000",
+  ];
 
   @override
   Widget build(BuildContext context) {
     final product = demoProducts[0];
+    int selectedTopup = 0; // tambahkan ini di dalam State class
+
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -77,38 +92,70 @@ class ProductDetailsScreen extends StatelessWidget {
                   pressOnSeeMore: () {},
                 ),// Di dalam body atau bagian bawah deskripsi produk:
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Pilih Currency:",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        "Pilih Paket Top-Up",
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       Wrap(
-                        spacing: 10,
-                        children: [
-                          ChoiceChip(label: Text("Stellar Jade 50 - 7.000"), selected: true),
-                          ChoiceChip(label: Text("Stellar Jade 150 - 21.000"), selected: false),
-                          ChoiceChip(label: Text("Stellar Jade 540 - 98.000"), selected: false),
-                        ],
+                        spacing: 12,
+                        runSpacing: 12,
+                        children: List.generate(topupOptions.length, (index) {
+                          final option = topupOptions[index];
+                          final isSelected = selectedTopup == index;
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() => selectedTopup = index);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              constraints: const BoxConstraints(minWidth: 130),
+                              decoration: BoxDecoration(
+                                color: isSelected ? const Color(0xFF03A9F4).withOpacity(0.2) : Colors.grey[100],
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: isSelected ? const Color(0xFF03A9F4) : Colors.transparent,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                option,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
                       ),
-                      const SizedBox(height: 20),
+
+                      const SizedBox(height: 24),
                       const Text(
-                        "Masukkan ID Akun Game:",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        "ID Akun Game",
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       TextField(
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          hintText: "Contoh: 123456789",
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                          fillColor: Colors.white,
+                          prefixIcon: const Icon(Icons.perm_identity, color: kPrimaryColor),
+                          hintText: "Id Akun Game",
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          fillColor: const Color(0xFFF1F1F1),
                           filled: true,
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -126,7 +173,7 @@ class ProductDetailsScreen extends StatelessWidget {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                backgroundColor: const Color(0xFFFF7643),
+                backgroundColor: kPrimaryColor,
                 foregroundColor: Colors.white,
                 minimumSize: const Size(double.infinity, 48),
                 shape: const RoundedRectangleBorder(
@@ -138,33 +185,57 @@ class ProductDetailsScreen extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
+                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       title: const Text("Berhasil"),
                       content: const Text("Produk berhasil dimasukkan ke keranjang."),
+                      actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context); // Menutup dialog
-                          },
-                          child: const Text("Tutup"),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 48,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context); // Tutup dialog
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                    side: const BorderSide(color: kPrimaryColor),
+                                  ),
+                                  child: const Text("Tutup", style: TextStyle(color: kPrimaryColor)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12), // Spacer antar tombol
+                            Expanded(
+                              child: SizedBox(
+                                height: 48,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const CartScreen()),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: kPrimaryColor,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                  ),
+                                  child: const Text("Cek Keranjang"),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => const CartScreen()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFF7643),
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text("Cek Keranjang"),
-                        ),
+
                       ],
                     );
                   },
                 );
+
               },
 
               child: const Text("Add To Cart"),
@@ -282,7 +353,7 @@ class _SmallProductImageState extends State<SmallProductImage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-              color: const Color(0xFFFF7643)
+              color: kPrimaryColor
                   .withOpacity(widget.isSelected ? 1 : 0)),
         ),
         child: Image.network(widget.image),
@@ -360,13 +431,13 @@ class ProductDescription extends StatelessWidget {
                 Text(
                   "See More Detail",
                   style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Color(0xFFFF7643)),
+                      fontWeight: FontWeight.w600, color: kPrimaryColor),
                 ),
                 SizedBox(width: 5),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 12,
-                  color: Color(0xFFFF7643),
+                  color: kPrimaryColor,
                 ),
               ],
             ),
@@ -443,7 +514,7 @@ class ColorDot extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(
-            color: isSelected ? const Color(0xFFFF7643) : Colors.transparent),
+            color: isSelected ? kPrimaryColor : Colors.transparent),
         shape: BoxShape.circle,
       ),
       child: DecoratedBox(
@@ -486,7 +557,7 @@ class RoundedIconBtn extends StatelessWidget {
       ),
       child: TextButton(
         style: TextButton.styleFrom(
-          foregroundColor: const Color(0xFFFF7643),
+          foregroundColor: kPrimaryColor,
           padding: EdgeInsets.zero,
           backgroundColor: Colors.white,
           shape:
@@ -537,7 +608,7 @@ List<Product> demoProducts = [
       const Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Wireless Controller for PS4™",
+    title: "Genshin Impact",
     price: 64.99,
     description: description,
     rating: 4.8,
@@ -600,7 +671,7 @@ List<Product> demoProducts = [
 ];
 
 const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";
+    "Sebuah game Mobile dimana kita berpetualang di dunia fantasy bertema anime, kita sebagain karakter utama menca…";
 
 const starIcon =
 '''<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../customer/home/home.dart';
 import '../../customer/product/listProduct.dart';
 import '../../customer/pembayaran/historyPembayaran.dart';
+import '../../../constants.dart';
 
 class CustomerNavbar extends StatelessWidget {
   final int selectedIndex;
@@ -41,7 +42,7 @@ class CustomerNavbar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       onTap: (index) => _onItemTapped(context, index),
-      selectedItemColor: const Color(0xFFFF7643),
+      selectedItemColor: kPrimaryColor,
       unselectedItemColor: Colors.grey,
       items: const [
         BottomNavigationBarItem(

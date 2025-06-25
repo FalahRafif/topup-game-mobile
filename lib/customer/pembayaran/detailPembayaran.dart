@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constants.dart';
 
 class InvoicingScreen extends StatelessWidget {
   const InvoicingScreen({super.key});
@@ -23,7 +24,7 @@ class InvoicingScreen extends StatelessWidget {
               const SizedBox(height: 12),
               _paymentOption("E-Wallet", Icons.account_balance_wallet),
               _paymentOption("Transfer Bank", Icons.account_balance),
-              _paymentOption("Cash on Delivery (COD)", Icons.money),
+              _paymentOption("PayPal", Icons.paypal),
             ],
           ),
         );
@@ -34,7 +35,7 @@ class InvoicingScreen extends StatelessWidget {
   Widget _paymentOption(String title, IconData icon) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Icon(icon, color: Colors.grey.shade600),
+      leading: Icon(icon, color: kPrimaryColor),
       title: Text(title),
       onTap: () {},
     );
@@ -76,7 +77,7 @@ class InvoicingScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFFF7643),
+                    color: kPrimaryColor,
                   ),
                 ),
               ],
@@ -106,7 +107,7 @@ class InvoicingScreen extends StatelessWidget {
             children: [
               Icon(
                 statusList[index]["icon"] as IconData,
-                color: isActive ? const Color(0xFFFF7643) : Colors.grey.shade400,
+                color: isActive ? kPrimaryColor : Colors.grey.shade400,
                 size: 28,
               ),
               const SizedBox(height: 6),
@@ -132,12 +133,12 @@ class InvoicingScreen extends StatelessWidget {
     final List<Map<String, dynamic>> products = [
       {
         "image": "https://i.postimg.cc/c19zpJ6f/Image-Popular-Product-1.png",
-        "title": "Wireless Controller for PS4™",
+        "title": "Genshin Impact - Primogem 160™",
         "price": 649000,
       },
       {
         "image": "https://i.postimg.cc/CxD6nH74/Image-Popular-Product-2.png",
-        "title": "Nike Sport White - Man Pant",
+        "title": "Mobile Legend - Diamond 1000",
         "price": 505000,
       },
     ];
@@ -209,7 +210,7 @@ class InvoicingScreen extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFFF7643),
+                        color: kPrimaryColor,
                       ),
                     ),
                   ],
@@ -220,7 +221,7 @@ class InvoicingScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () => _showPaymentOptions(context),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFFF7643),
+                      backgroundColor: kPrimaryColor,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

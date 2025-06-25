@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../pembayaran/detailPembayaran.dart';
-
+import '../../../constants.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -53,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: Row(
                   children: [
                     const Spacer(),
-                    SvgPicture.string(trashIcon),
+                    Icon(Icons.delete, color: kPrimaryColor,),
                   ],
                 ),
               ),
@@ -105,9 +105,9 @@ class CartCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text.rich(
               TextSpan(
-                text: "\$${cart.product.price}",
+                text: "Rp. {cart.product.price}",
                 style: const TextStyle(
-                    fontWeight: FontWeight.w600, color: Color(0xFFFF7643)),
+                    fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
                       text: " x${cart.numOfItem}",
@@ -164,7 +164,7 @@ class CheckoutCard extends StatelessWidget {
                     color: const Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: SvgPicture.string(receiptIcon),
+                  child: Icon(Icons.discount, color: kPrimaryColor,),
                 ),
                 const Spacer(),
                 const Text("Add voucher code"),
@@ -185,7 +185,7 @@ class CheckoutCard extends StatelessWidget {
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          text: "\$337.15",
+                          text: "Rp. 337.15",
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
@@ -204,7 +204,7 @@ class CheckoutCard extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
-                      backgroundColor: const Color(0xFFFF7643),
+                      backgroundColor: kPrimaryColor,
                       foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 48),
                       shape: const RoundedRectangleBorder(
@@ -272,7 +272,7 @@ List<Product> demoProducts = [
       Colors.white,
     ],
     title: "Genshin Impact - Primogem 50",
-    price: 7.000,
+    price: 7000,
     description: description,
     rating: 4.8,
     isFavourite: true,
@@ -290,7 +290,7 @@ List<Product> demoProducts = [
       Colors.white,
     ],
     title: "Genshin Impact - welkin moon",
-    price: 50.000,
+    price: 50000,
     description: description,
     rating: 4.1,
     isPopular: true,
@@ -307,7 +307,7 @@ List<Product> demoProducts = [
       Colors.white,
     ],
     title: "Mobile Legend - Diamong 1000",
-    price: 160.000,
+    price: 160000,
     description: description,
     rating: 4.1,
     isFavourite: true,
