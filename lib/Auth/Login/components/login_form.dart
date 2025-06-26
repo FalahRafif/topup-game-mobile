@@ -97,7 +97,7 @@ class LoginForm extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return AdminHome();
+                        return HomePage();
                       },
                     ),
                   );
