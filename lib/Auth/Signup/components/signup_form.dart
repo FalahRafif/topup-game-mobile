@@ -7,7 +7,7 @@ import '../../components/modal_validation.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     String? emailVal;
@@ -132,7 +132,7 @@ class SignUpForm extends StatelessWidget {
                 "assets/images/clock.png",
                 "100",
               );
-              Future.delayed(Duration(seconds: 2), () {
+              Future.delayed(Duration(seconds: 1), () {
                 hideLoading(context);
                 if (passVal != confPassVal) {
                   isValid = "no";
