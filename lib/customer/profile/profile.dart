@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constants.dart';
 import '../../Auth/Welcome/welcome_screen.dart';
+import 'editProfile.dart';
+import 'helpCenter.dart';
+import 'notification.dart';
+import 'settings.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,32 +29,42 @@ class ProfileScreen extends StatelessWidget {
             ProfileMenu(
               text: "My Account",
               icon: "assets/images/icons/User Icon.svg",
-              press: () => {},
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const EditProfileScreen()),
+              ),
             ),
             ProfileMenu(
               text: "Notifications",
               icon: "assets/images/icons/Bell.svg",
-              press: () {},
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+              ),
             ),
             ProfileMenu(
               text: "Settings",
               icon: "assets/images/icons/Settings.svg",
-              press: () {},
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              ),
             ),
             ProfileMenu(
               text: "Help Center",
               icon: "assets/images/icons/Question mark.svg",
-              press: () {},
+              press: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HelpCenterScreen()),
+              ),
             ),
             ProfileMenu(
               text: "Log Out",
               icon: "assets/images/icons/Log out.svg",
               press: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => WelcomeScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const WelcomeScreen()),
                 );
               },
             ),
@@ -58,6 +74,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
